@@ -17,40 +17,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Renderizar tarefas na tela
   function renderTasks(tasks) {
-    taskList.innerHTML = '';
+    const activeList = document.getElementById('task-list');
+    const completedList = document.getElementById('completed-task-list');
+    activeList.innerHTML = '';
+    completedList.innerHTML = '';
+  
     tasks.forEach(task => {
       const li = document.createElement('li');
-      li.className = `list-group-item d-flex justify-content-between align-items-start flex-column ${task.completed ? 'list-group-item-success' : ''}`;
-
-      // Formatando datas
+      li.className = `list-group-item d-flex justify-content-between align-items-start flex-column`;
+  
       const creationDate = new Date(task.createdAt).toLocaleString('pt-BR', {
         dateStyle: 'short',
         timeStyle: 'short'
       });
-
-      const updatedDate = task.updatedAt
-        ? new Date(task.updatedAt).toLocaleString('pt-BR', {
-            dateStyle: 'short',
-            timeStyle: 'short'
-          })
-        : null;
-
+  
       li.innerHTML = `
         <div class="w-100 mb-2">
-          <strong>${task.title}</strong><br>
-          <small>${task.description}</small><br>
-          <small class="text-muted">Criada em: ${creationDate}</small><br>
-          ${updatedDate ? `<small class="text-muted">Editada em: ${updatedDate}</small>` : ''}
+          <strong class="${task.completed ? 'text-decoration-line-through' : ''}">${task.title}</strong><br>
+          <small class="${task.completed ? 'text-decoration-line-through' : ''}">${task.description}</small><br>
+          <small class="text-muted">Criada em: ${creationDate}</small>
+          ${task.updatedAt ? `<br><small class="text-muted">Editada em: ${new Date(task.updatedAt).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</small>` : ''}
         </div>
         <div class="w-100 d-flex justify-content-end">
-          <button class="btn btn-sm btn-outline-success me-2" onclick="completeTask(${task.id})">✔</button>
+          ${
+            !task.completed
+              ? `<button class="btn btn-sm btn-outline-success me-2" onclick="completeTask(${task.id})">✔</button>`
+              : ''
+          }
           <button class="btn btn-sm btn-outline-warning me-2" onclick="openEditModal(${task.id}, '${task.title}', '${task.description}')">✏️</button>
           <button class="btn btn-sm btn-outline-danger" onclick="deleteTask(${task.id})">🗑</button>
         </div>
       `;
-      taskList.appendChild(li);
+  
+      if (task.completed) {
+        li.classList.add('completed-task');
+        completedList.appendChild(li);
+      } else {
+        li.classList.add('pending-task');
+        activeList.appendChild(li);
+      }
     });
   }
+  
+
 
   // Criar nova tarefa
   form.addEventListener('submit', async (e) => {

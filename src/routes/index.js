@@ -110,4 +110,25 @@ router.put('/tasks/:id', taskController.updateTask);
 
 router.delete('/tasks/:id', taskController.deleteTask);
 
+/**
+ * @swagger
+ * /tasks/{id}:
+ *   patch:
+ *     summary: Marca a tarefa como concluída
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da tarefa
+ *     responses:
+ *       200:
+ *         description: Tarefa marcada como concluída
+ *       404:
+ *         description: Tarefa não encontrada
+ */
+router.patch('/tasks/:id', taskController.completeTask);
+
+
 module.exports = router;

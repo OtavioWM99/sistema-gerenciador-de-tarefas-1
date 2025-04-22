@@ -1,12 +1,41 @@
+/* Estilo geral */
 body {
     background-color: #f8f9fa;
   }
   
-#task-list li {
+  /* Tarefas (pendentes e concluídas) - estilo base compartilhado */
+  #task-list li,
+  #completed-task-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    max-width: 600px;
+    min-height: 100px;
+    text-align: left;
     transition: background-color 0.3s;
-}
+  }
   
-#task-list li:hover {
+  /* Hover para tarefas pendentes */
+  #task-list li:hover {
     background-color: #f1f1f1;
-}
+  }
+  
+  /* Tarefas concluídas - aparência diferenciada */
+  #completed-task-list li.completed-task {
+    background-color: #d4edda;
+    opacity: 0.95;
+  }
+  
+  /* Data das tarefas */
+  #task-list li .task-date,
+  #completed-task-list li .task-date {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-top: 10px;
+  }
   

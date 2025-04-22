@@ -40,3 +40,15 @@ exports.deleteTask = (req, res) => {
 
   res.status(204).send(); // 204: No Content
 };
+
+exports.completeTask = (req, res) => {
+    const id = parseInt(req.params.id);
+    const task = Task.complete(id);
+  
+    if (!task) {
+      return res.status(404).json({ error: 'Tarefa não encontrada' });
+    }
+  
+    res.json(task);
+  };
+  
