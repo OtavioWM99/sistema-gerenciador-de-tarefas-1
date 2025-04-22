@@ -11,6 +11,15 @@ const PORT = process.env.PORT || 3000;
 // Middleware para parsear JSON
 app.use(express.json());
 
+const path = require('path');
+
+// Serve arquivos estáticos da pasta "public"
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Rotas
 app.use('/api', routes);
 
@@ -19,5 +28,7 @@ swaggerConfig(app);
 
 // Iniciar servidor
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}/api`);
 });
+
+app.use(express.static('public'));

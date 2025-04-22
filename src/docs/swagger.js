@@ -5,13 +5,13 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'API de Gestão de Consultas Médicas',
+      title: 'API de Gestão de Tarefas',
       version: '1.0.0',
       description: 'Documentação da API Sistema Gerenciador de Tarefas',
     },
     servers: [
       {
-        url: '<http://localhost:3000>',
+        url: 'http://localhost:3000/api',
         description: 'Servidor local',
       },
     ],
