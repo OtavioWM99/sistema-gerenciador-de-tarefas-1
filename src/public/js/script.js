@@ -1,116 +1,138 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('task-form');
-    const taskList = document.getElementById('task-list');
-  
-    const API_URL = '/api/tasks';
-  
-    // Pegar tarefas existentes
-    async function fetchTasks() {
-      try {
-        const res = await fetch(API_URL);
-        const tasks = await res.json();
-        renderTasks(tasks);
-      } catch (err) {
-        console.error('Erro ao buscar tarefas:', err);
-      }
+  const form = document.getElementById('task-form');
+  const taskList = document.getElementById('task-list');
+
+  const API_URL = '/api/tasks';
+
+  // Pegar tarefas existentes
+  async function fetchTasks() {
+    try {
+      const res = await fetch(API_URL);
+      const tasks = await res.json();
+      renderTasks(tasks);
+    } catch (err) {
+      console.error('Erro ao buscar tarefas:', err);
     }
-  
-    // Renderizar tarefas na tela
-    function renderTasks(tasks) {
-        taskList.innerHTML = '';
-        tasks.forEach(task => {
-          const li = document.createElement('li');
-          li.className = `list-group-item d-flex justify-content-between align-items-start flex-column ${task.completed ? 'list-group-item-success' : ''}`;
-      
-          // Formatando a data
-          const creationDate = new Date(task.createdAt).toLocaleString('pt-BR', {
+  }
+
+  // Renderizar tarefas na tela
+  function renderTasks(tasks) {
+    taskList.innerHTML = '';
+    tasks.forEach(task => {
+      const li = document.createElement('li');
+      li.className = `list-group-item d-flex justify-content-between align-items-start flex-column ${task.completed ? 'list-group-item-success' : ''}`;
+
+      // Formatando datas
+      const creationDate = new Date(task.createdAt).toLocaleString('pt-BR', {
+        dateStyle: 'short',
+        timeStyle: 'short'
+      });
+
+      const updatedDate = task.updatedAt
+        ? new Date(task.updatedAt).toLocaleString('pt-BR', {
             dateStyle: 'short',
             timeStyle: 'short'
-          });
-      
-          li.innerHTML = `
-            <div class="w-100 mb-2">
-              <strong>${task.title}</strong><br>
-              <small>${task.description}</small><br>
-              <small class="text-muted">Criada em: ${creationDate}</small>
-            </div>
-            <div class="w-100 d-flex justify-content-end">
-              <button class="btn btn-sm btn-outline-success me-2" onclick="completeTask(${task.id})">✔</button>
-              <button class="btn btn-sm btn-outline-warning me-2" onclick="editTask(${task.id}, '${task.title}', '${task.description}')">✏️</button>
-              <button class="btn btn-sm btn-outline-danger" onclick="deleteTask(${task.id})">🗑</button>
-            </div>
-          `;
-          taskList.appendChild(li);
-        });
-      }
-    
-  
-    // Criar nova tarefa
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const title = document.getElementById('title').value.trim();
-      const description = document.getElementById('description').value.trim();
-  
-      if (!title || !description) return;
-  
-      try {
-        await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, description })
-        });
-  
-        form.reset();
-        fetchTasks();
-      } catch (err) {
-        console.error('Erro ao criar tarefa:', err);
-      }
-    });
+          })
+        : null;
 
-    //Editar tarefa
-    window.editTask = async (id, currentTitle, currentDescription) => {
-        const newTitle = prompt('Novo título:', currentTitle);
-        const newDescription = prompt('Nova descrição:', currentDescription);
-      
-        if (!newTitle || !newDescription) return;
-      
-        try {
-          await fetch(`${API_URL}/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title: newTitle, description: newDescription })
-          });
-          fetchTasks();
-        } catch (err) {
-          console.error('Erro ao editar tarefa:', err);
-        }
-      };
-      
-  
-    // Excluir tarefa
-    window.deleteTask = async (id) => {
-      try {
-        await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-        fetchTasks();
-      } catch (err) {
-        console.error('Erro ao excluir tarefa:', err);
-      }
-    };
-  
-    // Marcar tarefa como concluída
-    window.completeTask = async (id) => {
-      try {
-        await fetch(`${API_URL}/${id}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ completed: true })
-        });
-        fetchTasks();
-      } catch (err) {
-        console.error('Erro ao concluir tarefa:', err);
-      }
-    };
-  
-    fetchTasks();
+      li.innerHTML = `
+        <div class="w-100 mb-2">
+          <strong>${task.title}</strong><br>
+          <small>${task.description}</small><br>
+          <small class="text-muted">Criada em: ${creationDate}</small><br>
+          ${updatedDate ? `<small class="text-muted">Editada em: ${updatedDate}</small>` : ''}
+        </div>
+        <div class="w-100 d-flex justify-content-end">
+          <button class="btn btn-sm btn-outline-success me-2" onclick="completeTask(${task.id})">✔</button>
+          <button class="btn btn-sm btn-outline-warning me-2" onclick="openEditModal(${task.id}, '${task.title}', '${task.description}')">✏️</button>
+          <button class="btn btn-sm btn-outline-danger" onclick="deleteTask(${task.id})">🗑</button>
+        </div>
+      `;
+      taskList.appendChild(li);
+    });
+  }
+
+  // Criar nova tarefa
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const title = document.getElementById('title').value.trim();
+    const description = document.getElementById('description').value.trim();
+
+    if (!title || !description) return;
+
+    try {
+      await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, description })
+      });
+
+      form.reset();
+      fetchTasks();
+    } catch (err) {
+      console.error('Erro ao criar tarefa:', err);
+    }
   });
-  
+
+  // Abre o modal e preenche os campos
+  window.openEditModal = (id, title, description) => {
+    document.getElementById('edit-id').value = id;
+    document.getElementById('edit-title').value = title;
+    document.getElementById('edit-description').value = description;
+
+    const modal = new bootstrap.Modal(document.getElementById('editTaskModal'));
+    modal.show();
+  };
+
+  // Lida com o submit do formulário de edição
+  document.getElementById('edit-task-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const id = document.getElementById('edit-id').value;
+    const title = document.getElementById('edit-title').value.trim();
+    const description = document.getElementById('edit-description').value.trim();
+
+    if (!title || !description) return;
+
+    try {
+      await fetch(`/api/tasks/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, description })
+      });
+
+      const modal = bootstrap.Modal.getInstance(document.getElementById('editTaskModal'));
+      modal.hide();
+
+      fetchTasks();
+    } catch (err) {
+      console.error('Erro ao editar tarefa:', err);
+    }
+  });
+
+  // Excluir tarefa
+  window.deleteTask = async (id) => {
+    try {
+      await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      fetchTasks();
+    } catch (err) {
+      console.error('Erro ao excluir tarefa:', err);
+    }
+  };
+
+  // Marcar tarefa como concluída
+  window.completeTask = async (id) => {
+    try {
+      await fetch(`${API_URL}/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ completed: true })
+      });
+      fetchTasks();
+    } catch (err) {
+      console.error('Erro ao concluir tarefa:', err);
+    }
+  };
+
+  fetchTasks();
+});

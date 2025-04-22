@@ -7,6 +7,7 @@ class Task {
     this.description = description;
     this.completed = false;
     this.createdAt = new Date();
+    this.updatedAt = null; // <- adiciona updatedAt
   }
 
   static create(data) {
@@ -25,6 +26,7 @@ class Task {
 
     task.title = title;
     task.description = description;
+    task.updatedAt = new Date(); // <- atualiza quando editado
     return task;
   }
 
