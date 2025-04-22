@@ -110,15 +110,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  let taskIdToDelete = null;
+
   // Excluir tarefa
-  window.deleteTask = async (id) => {
+  window.deleteTask = (id) => {
+    taskIdToDelete = id;
+    const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+    modal.show();
+  };
+  
+  document.getElementById('confirm-delete-btn').addEventListener('click', async () => {
+    if (!taskIdToDelete) return;
+  
     try {
-      await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      await fetch(`${API_URL}/${taskIdToDelete}`, { method: 'DELETE' });
+      const modal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
+      modal.hide();
+      taskIdToDelete = null;
       fetchTasks();
     } catch (err) {
       console.error('Erro ao excluir tarefa:', err);
     }
-  };
+  });
+  
 
   // Marcar tarefa como concluída
   window.completeTask = async (id) => {

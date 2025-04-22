@@ -37,7 +37,23 @@ router.post('/tasks', taskController.createTask);
  */
 router.get('/tasks', taskController.getTasks);
 
-
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Retorna mensagem de boas-vindas da API
+ *     responses:
+ *       200:
+ *         description: Mensagem informando que a API está ativa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensagem:
+ *                   type: string
+ *                   example: API de Gestão de Tarefas
+ */
 router.get('/', (req, res) => {
   res.json({ mensagem: 'API de Gestão de Tarefas' });
 });
@@ -72,5 +88,26 @@ router.get('/', (req, res) => {
  *         description: Tarefa não encontrada
  */
 router.put('/tasks/:id', taskController.updateTask);
+
+/**
+ * @swagger
+ * /tasks/{id}:
+ *   delete:
+ *     summary: Exclui uma tarefa
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da tarefa
+ *     responses:
+ *       204:
+ *         description: Tarefa excluída com sucesso
+ *       404:
+ *         description: Tarefa não encontrada
+ */
+
+router.delete('/tasks/:id', taskController.deleteTask);
 
 module.exports = router;

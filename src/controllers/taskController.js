@@ -29,3 +29,14 @@ exports.getTasks = (req, res) => {
   const tasks = Task.getAll(); // usando método do modelo
   res.status(200).json(tasks);
 };
+
+exports.deleteTask = (req, res) => {
+  const id = parseInt(req.params.id);
+  const success = Task.delete(id);
+
+  if (!success) {
+    return res.status(404).json({ error: 'Tarefa não encontrada' });
+  }
+
+  res.status(204).send(); // 204: No Content
+};
