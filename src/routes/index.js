@@ -55,7 +55,7 @@ router.get('/tasks', taskController.getTasks);
  *                   example: API de Gestão de Tarefas
  */
 router.get('/', (req, res) => {
-  res.json({ mensagem: 'API de Gestão de Tarefas' });
+  res.json({ mensagem: 'Bem vindo a API de Gestão de Tarefas. Acesse http://localhost:3000/ para utilizá-la.' });
 });
 
 /**

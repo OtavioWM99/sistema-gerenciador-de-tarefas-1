@@ -8,7 +8,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware para parsear JSON
 app.use(express.json());
 
 const path = require('path');
@@ -28,7 +27,7 @@ swaggerConfig(app);
 
 // Iniciar servidor
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}/api`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
 
 app.use(express.static('public'));

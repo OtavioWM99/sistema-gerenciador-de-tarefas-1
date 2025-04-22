@@ -86,4 +86,6 @@ Se tiver dúvidas ou sugestões, entre em contato:
 ### **Testar a Aplicação**
    - Acesse `http://localhost:3000/api/` para ver a mensagem de boas-vindas.
    - Acesse `http://localhost:3000/api-docs/` para visualizar a documentação Swagger.
+   - Acesse `http://localhost:3000/api/tasks/` para visualizar a lista com todas as tarefas.
+   - Acesse `http://localhost:3000/` para utilizar a API.
 

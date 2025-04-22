@@ -7,7 +7,7 @@ class Task {
     this.description = description;
     this.completed = false;
     this.createdAt = new Date();
-    this.updatedAt = null; // <- adiciona updatedAt
+    this.updatedAt = null; 
   }
 
   static create(data) {

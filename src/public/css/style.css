@@ -1,9 +1,7 @@
-/* Estilo geral */
 body {
     background-color: #f8f9fa;
   }
   
-  /* Tarefas (pendentes e concluídas) - estilo base compartilhado */
   #task-list li,
   #completed-task-list li {
     display: flex;
@@ -20,18 +18,15 @@ body {
     transition: background-color 0.3s;
   }
   
-  /* Hover para tarefas pendentes */
   #task-list li:hover {
     background-color: #f1f1f1;
   }
   
-  /* Tarefas concluídas - aparência diferenciada */
   #completed-task-list li.completed-task {
     background-color: #d4edda;
     opacity: 0.95;
   }
   
-  /* Data das tarefas */
   #task-list li .task-date,
   #completed-task-list li .task-date {
     font-size: 0.9em;

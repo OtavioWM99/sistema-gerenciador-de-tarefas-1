@@ -26,7 +26,7 @@ exports.updateTask = (req, res) => {
   
 
 exports.getTasks = (req, res) => {
-  const tasks = Task.getAll(); // usando método do modelo
+  const tasks = Task.getAll(); 
   res.status(200).json(tasks);
 };
 

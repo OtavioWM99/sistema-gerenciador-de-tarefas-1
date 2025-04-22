@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Abre o modal e preenche os campos
+
   window.openEditModal = (id, title, description) => {
     document.getElementById('edit-id').value = id;
     document.getElementById('edit-title').value = title;
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.show();
   };
 
-  // Lida com o submit do formulário de edição
+
   document.getElementById('edit-task-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
