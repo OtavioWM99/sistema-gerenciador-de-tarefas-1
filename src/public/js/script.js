@@ -17,23 +17,32 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // Renderizar tarefas na tela
     function renderTasks(tasks) {
-      taskList.innerHTML = '';
-      tasks.forEach(task => {
-        const li = document.createElement('li');
-        li.className = `list-group-item d-flex justify-content-between align-items-center ${task.completed ? 'list-group-item-success' : ''}`;
-        li.innerHTML = `
-          <span>
-            <strong>${task.title}</strong><br>
-            <small>${task.description}</small>
-          </span>
-          <span>
-            <button class="btn btn-sm btn-outline-success me-2" onclick="completeTask(${task.id})">✔</button>
-            <button class="btn btn-sm btn-outline-danger" onclick="deleteTask(${task.id})">🗑</button>
-          </span>
-        `;
-        taskList.appendChild(li);
-      });
-    }
+        taskList.innerHTML = '';
+        tasks.forEach(task => {
+          const li = document.createElement('li');
+          li.className = `list-group-item d-flex justify-content-between align-items-start flex-column ${task.completed ? 'list-group-item-success' : ''}`;
+      
+          // Formatando a data
+          const creationDate = new Date(task.createdAt).toLocaleString('pt-BR', {
+            dateStyle: 'short',
+            timeStyle: 'short'
+          });
+      
+          li.innerHTML = `
+            <div class="w-100 mb-2">
+              <strong>${task.title}</strong><br>
+              <small>${task.description}</small><br>
+              <small class="text-muted">Criada em: ${creationDate}</small>
+            </div>
+            <div class="w-100 d-flex justify-content-end">
+              <button class="btn btn-sm btn-outline-success me-2" onclick="completeTask(${task.id})">✔</button>
+              <button class="btn btn-sm btn-outline-danger" onclick="deleteTask(${task.id})">🗑</button>
+            </div>
+          `;
+          taskList.appendChild(li);
+        });
+      }
+    
   
     // Criar nova tarefa
     form.addEventListener('submit', async (e) => {
