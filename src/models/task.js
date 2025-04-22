@@ -18,6 +18,31 @@ class Task {
   static getAll() {
     return tasks;
   }
+
+  static update(id, { title, description }) {
+    const task = tasks.find(t => t.id === id);
+    if (!task) return null;
+
+    task.title = title;
+    task.description = description;
+    return task;
+  }
+
+  static delete(id) {
+    const index = tasks.findIndex(t => t.id === id);
+    if (index === -1) return false;
+
+    tasks.splice(index, 1);
+    return true;
+  }
+
+  static complete(id) {
+    const task = tasks.find(t => t.id === id);
+    if (!task) return null;
+
+    task.completed = true;
+    return task;
+  }
 }
 
 module.exports = Task;

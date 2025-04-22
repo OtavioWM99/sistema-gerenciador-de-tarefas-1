@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="w-100 d-flex justify-content-end">
               <button class="btn btn-sm btn-outline-success me-2" onclick="completeTask(${task.id})">✔</button>
+              <button class="btn btn-sm btn-outline-warning me-2" onclick="editTask(${task.id}, '${task.title}', '${task.description}')">✏️</button>
               <button class="btn btn-sm btn-outline-danger" onclick="deleteTask(${task.id})">🗑</button>
             </div>
           `;
@@ -65,6 +66,26 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Erro ao criar tarefa:', err);
       }
     });
+
+    //Editar tarefa
+    window.editTask = async (id, currentTitle, currentDescription) => {
+        const newTitle = prompt('Novo título:', currentTitle);
+        const newDescription = prompt('Nova descrição:', currentDescription);
+      
+        if (!newTitle || !newDescription) return;
+      
+        try {
+          await fetch(`${API_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: newTitle, description: newDescription })
+          });
+          fetchTasks();
+        } catch (err) {
+          console.error('Erro ao editar tarefa:', err);
+        }
+      };
+      
   
     // Excluir tarefa
     window.deleteTask = async (id) => {
