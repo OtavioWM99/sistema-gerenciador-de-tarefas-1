@@ -37,28 +37,42 @@ Este projeto é o scaffolding inicial de uma API para um gerenciador de tarefas.
    npm run dev
 
 6. Acesse a API:
-   - A rota principal estará disponível em: `http://localhost:3000/api/`.
+   - A rota principal estará disponível em: `http://localhost:3000/`.
    - A documentação interativa (Swagger) estará disponível em: `http://localhost:3000/api-docs/`.
+   - A lista com todas as tarefas estará disponível em: `http://localhost:3000/api/tasks/`.
+    -A mensagem de boas vidas estará disponível em: `http://localhost:3000/api/`. 
 
 ## Estrutura do Projeto
 
 sistema-gerenciador-de-tarefas-1/
-├── src/
-│   ├── config/                  # Configurações do projeto
-│   ├── controllers/             # Controladores da API
-│   ├── models/                  # Modelos de dados
-│   ├── routes/                  # Definição das rotas da API
-│   ├── middlewares/             # Middlewares customizados
-│   ├── docs/                    # Configuração do Swagger
-│   └── index.js                 # Ponto de entrada da aplicação
-├── .env                         # Variáveis de ambiente
-├── .env.example                 # Exemplo de variáveis de ambiente
-├── .gitignore                   # Arquivos ignorados pelo Git
-├── .eslintrc.json               # Configuração do ESLint
-├── .prettierrc                  # Configuração do Prettier
-├── package.json                 # Dependências e scripts do projeto
-└── README.md                    # Documentação do projeto
-
+├── src/                            # Código-fonte principal do projeto
+│   ├── config/                     # Configurações do projeto
+│   ├── controllers/                # Controladores da API
+│   │   └── taskController.js       # Controlador para gerenciar tarefas
+│   ├── docs/                       # Documentação da API
+│   │   └── swagger.js              # Configuração do Swagger para documentação
+│   ├── middlewares/                # Middlewares customizados
+│   ├── models/                     # Modelos de dados
+│   │   └── task.js                 # Modelo para tarefas
+│   ├── public/                     # Arquivos estáticos acessíveis ao cliente
+│   │   ├── css/                    # Estilos CSS
+│   │   │   └── style.css           # Arquivo de estilos principal
+│   │   ├── img/                    # Imagens do projeto
+│   │   ├── js/                     # Scripts JavaScript do lado do cliente
+│   │   │   └── script.js           # Script principal do frontend
+│   │   └── index.html              # Página HTML principal
+│   ├── routes/                     # Definição das rotas da API
+│   │   └── index.js                # Rotas principais da aplicação
+│   └── app.js                      # Arquivo principal da aplicação
+├── .env                            # Variáveis de ambiente
+├── .env.example                    # Exemplo de variáveis de ambiente
+├── .eslintignore                   # Arquivos ignorados pelo ESLint
+├── .eslintrc.js                    # Configuração do ESLint
+├── .gitignore                      # Arquivos ignorados pelo Git
+├── .prettierrc                     # Configuração do Prettier
+├── package-lock.json               # Dependências e versões exatas do projeto
+├── package.json                    # Dependências e scripts do projeto
+└── README.md                       # Documentação do projeto
 
 ## Como contribuir
 
