@@ -130,5 +130,13 @@ router.delete('/tasks/:id', taskController.deleteTask);
  */
 router.patch('/tasks/:id', taskController.completeTask);
 
+router.get('/', (req, res) => {
+  res.render('home');
+});
+
+router.get('/tarefas', (req, res) => {
+  res.render('tarefas');
+});
+
 
 module.exports = router;

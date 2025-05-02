@@ -1,25 +1,29 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const path = require('path');
 const routes = require('./routes');
 const swaggerConfig = require('./docs/swagger');
+const configViewEngine = require('./config/viewEngine'); // <-- aqui
 
+// Configurar variáveis de ambiente
 dotenv.config();
 
+// Inicializar app
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Configurar EJS e arquivos estáticos
+configViewEngine(app); // <-- usando seu viewEngine.js
+
+// Middleware para parse de JSON
 app.use(express.json());
 
-const path = require('path');
-
-// Serve arquivos estáticos da pasta "public"
-app.use(express.static(path.join(__dirname, 'public')));
-
+// Rotas principais
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.render('tarefas'); // Renderiza views/tarefas.ejs
 });
 
-// Rotas
+// Rotas da API
 app.use('/api', routes);
 
 // Swagger
@@ -29,5 +33,3 @@ swaggerConfig(app);
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
-
-app.use(express.static('public'));
