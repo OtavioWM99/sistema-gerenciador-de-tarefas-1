@@ -130,10 +130,16 @@ router.delete('/tasks/:id', taskController.deleteTask);
  */
 router.patch('/tasks/:id', taskController.completeTask);
 
-router.get('/', (req, res) => {
-  res.render('home');
-});
-
+/**
+ * @swagger
+ * /tarefas:
+ *   get:
+ *     summary: Página principal do sistema de tarefas
+ *     description: Renderiza a página HTML com o gerenciador de tarefas.
+ *     responses:
+ *       200:
+ *         description: Página carregada com sucesso 
+ */
 router.get('/tarefas', (req, res) => {
   res.render('tarefas');
 });

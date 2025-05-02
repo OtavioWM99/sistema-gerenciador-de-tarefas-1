@@ -1,13 +1,14 @@
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const path = require('path');
 
 const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'API de Gestão de Tarefas',
+      title: 'Aplicação de Gestão de Tarefas',
       version: '1.0.0',
-      description: 'Documentação da API Sistema Gerenciador de Tarefas',
+      description: 'Documentação da Aplicação Sistema Gerenciador de Tarefas',
     },
     servers: [
       {
@@ -16,7 +17,7 @@ const options = {
       },
     ],
   },
-  apis: ['./src/routes/*.js'], // Caminho para os arquivos de rotas
+  apis: [path.join(__dirname, '..', 'routes', '*.js')],
 };
 
 const specs = swaggerJsDoc(options);
