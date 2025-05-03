@@ -1,7 +1,7 @@
 ### **README.md**
 
 
-# API Sistema Gerenciador de Tarefas
+# Aplicação Sistema Gerenciador de Tarefas
 
 Este projeto é uma aplicação web para gerenciamento de tarefas, desenvolvida com Node.js, Express e EJS, seguindo a arquitetura MVC.
 Toda a interface (frontend) está integrada ao backend por meio de views dinâmicas e arquivos estáticos, sem necessidade de um frontend separado ou consumo via API externa.
