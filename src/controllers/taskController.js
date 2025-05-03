@@ -24,9 +24,26 @@ exports.updateTask = (req, res) => {
   res.json(updated);
 };
 
-exports.getTasks = (req, res) => {
-  const tasks = Task.getAll();
-  res.status(200).json(tasks);
+exports.getTasks = async (req, res) => {
+  const { status } = req.query;
+
+  try {
+    let tasks = Task.getAll();
+
+    const now = new Date();
+
+    if (status === 'pendentes') {
+      tasks = tasks.filter(task => !task.completed);
+    } else if (status === 'concluidas') {
+      tasks = tasks.filter(task => task.completed);
+    } else if (status === 'atraso') {
+      tasks = tasks.filter(task => !task.completed && task.deadline && new Date(task.deadline) < now);
+    }
+
+    res.status(200).json(tasks);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar tarefas' });
+  }
 };
 
 exports.deleteTask = (req, res) => {

@@ -36,10 +36,17 @@ router.post('/tasks', taskController.createTask);
  * @swagger
  * /tasks:
  *   get:
- *     summary: Lista todas as tarefas
+ *     summary: Lista todas as tarefas com filtro opcional
+ *     parameters:
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [todas, pendentes, concluidas, atraso]
+ *         description: Filtra tarefas por status
  *     responses:
  *       200:
- *         description: Lista de tarefas
+ *         description: Lista de tarefas (filtrada se necessário)
  */
 router.get('/tasks', taskController.getTasks);
 

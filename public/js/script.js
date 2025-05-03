@@ -5,15 +5,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const API_URL = '/api/tasks';
 
   // Pegar tarefas existentes
-  async function fetchTasks() {
+  async function fetchTasks(status = 'todas') {
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(`/api/tasks?status=${status}`);
       const tasks = await res.json();
       renderTasks(tasks);
     } catch (err) {
       console.error('Erro ao buscar tarefas:', err);
     }
+  }  
+
+  // Função para obter o filtro atual
+  function getCurrentFilter() {
+    return document.getElementById('filter').value;
   }
+
+  // Alterar filtro
+  window.handleFilterChange = () => {
+    const status = getCurrentFilter();
+    fetchTasks(status);
+  };  
 
   // Renderizar tarefas na tela
   function renderTasks(tasks) {
@@ -81,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       form.reset();
-      fetchTasks();
+      fetchTasks(getCurrentFilter());  // <-- Modificado aqui para respeitar o filtro
     } catch (err) {
       console.error('Erro ao criar tarefa:', err);
     }
@@ -119,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const modal = bootstrap.Modal.getInstance(document.getElementById('editTaskModal'));
       modal.hide();
 
-      fetchTasks();
+      fetchTasks(getCurrentFilter());  // <-- Modificado aqui para respeitar o filtro
     } catch (err) {
       console.error('Erro ao editar tarefa:', err);
     }
@@ -142,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const modal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
       modal.hide();
       taskIdToDelete = null;
-      fetchTasks();
+      fetchTasks(getCurrentFilter());  // <-- Modificado aqui para respeitar o filtro
     } catch (err) {
       console.error('Erro ao excluir tarefa:', err);
     }
@@ -156,11 +167,11 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ completed: true })
       });
-      fetchTasks();
+      fetchTasks(getCurrentFilter());  // <-- Modificado aqui para respeitar o filtro
     } catch (err) {
       console.error('Erro ao concluir tarefa:', err);
     }
   };
 
-  fetchTasks();
+  fetchTasks(getCurrentFilter());  // <-- Modificado aqui para respeitar o filtro inicial
 });

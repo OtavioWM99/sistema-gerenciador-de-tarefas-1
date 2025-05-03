@@ -82,6 +82,18 @@
       <button type="submit" class="btn btn-primary">Adicionar Tarefa</button>
     </form>
 
+    <!-- Filtro de tarefas -->
+    <div class="mb-4 d-flex justify-content-end">
+      <label for="filter" class="me-2 fw-bold">Filtrar:</label>
+      <select id="filter" class="form-select w-auto" onchange="handleFilterChange()">
+        <option value="todas">Todas</option>
+        <option value="pendentes">Pendentes</option>
+        <option value="concluidas">Concluídas</option>
+        <option value="atraso">Em atraso</option>
+      </select>
+    </div>
+
+    <!-- Listas -->
     <div class="row">
       <div class="col-md-6">
         <h4 class="mb-3">Minhas Tarefas</h4>
