@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         li.classList.add('completed-task');
         completedList.appendChild(li);
       } else if (isOverdue) {
-        li.classList.add('overdue-task');  // Adiciona a classe de atraso
+        li.classList.add('overdue-task');  
         activeList.appendChild(li);
       } else {
         li.classList.add('pending-task');
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       form.reset();
-      fetchTasks(getCurrentFilter());  // <-- Modificado aqui para respeitar o filtro
+      fetchTasks(getCurrentFilter()); 
     } catch (err) {
       console.error('Erro ao criar tarefa:', err);
     }
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const modal = bootstrap.Modal.getInstance(document.getElementById('editTaskModal'));
       modal.hide();
 
-      fetchTasks(getCurrentFilter());  // <-- Modificado aqui para respeitar o filtro
+      fetchTasks(getCurrentFilter());  
     } catch (err) {
       console.error('Erro ao editar tarefa:', err);
     }
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const modal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
       modal.hide();
       taskIdToDelete = null;
-      fetchTasks(getCurrentFilter());  // <-- Modificado aqui para respeitar o filtro
+      fetchTasks(getCurrentFilter());  
     } catch (err) {
       console.error('Erro ao excluir tarefa:', err);
     }
@@ -175,11 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ completed: true })
       });
-      fetchTasks(getCurrentFilter());  // <-- Modificado aqui para respeitar o filtro
+      fetchTasks(getCurrentFilter());  
     } catch (err) {
       console.error('Erro ao concluir tarefa:', err);
     }
   };
 
-  fetchTasks(getCurrentFilter());  // <-- Modificado aqui para respeitar o filtro inicial
+  fetchTasks(getCurrentFilter());  
 });

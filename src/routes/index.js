@@ -54,10 +54,10 @@ router.get('/tasks', taskController.getTasks);
  * @swagger
  * /:
  *   get:
- *     summary: Retorna mensagem de boas-vindas da API
+ *     summary: Retorna mensagem de boas-vindas da Aplicação
  *     responses:
  *       200:
- *         description: Mensagem informando que a API está ativa
+ *         description: Mensagem informando que a Aplicação está ativa
  *         content:
  *           application/json:
  *             schema:
@@ -65,10 +65,10 @@ router.get('/tasks', taskController.getTasks);
  *               properties:
  *                 mensagem:
  *                   type: string
- *                   example: API de Gestão de Tarefas
+ *                   example: Aplicação de Gestão de Tarefas
  */
 router.get('/', (req, res) => {
-  res.json({ mensagem: 'Bem vindo a API de Gestão de Tarefas. Acesse http://localhost:3000/ para utilizá-la.' });
+  res.json({ mensagem: 'Bem vindo a Aplicação de Gestão de Tarefas. Acesse http://localhost:3000/ para utilizá-la.' });
 });
 
 /**

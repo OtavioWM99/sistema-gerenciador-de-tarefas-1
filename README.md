@@ -1,11 +1,10 @@
-
-
 ### **README.md**
 
 
 # API Sistema Gerenciador de Tarefas
 
-Este projeto é o scaffolding inicial de uma API para um gerenciador de tarefas. Ele fornece a estrutura básica para o desenvolvimento de uma aplicação backend, utilizando Node.js, Express e Swagger para documentação.
+Este projeto é uma aplicação web para gerenciamento de tarefas, desenvolvida com Node.js, Express e EJS, seguindo a arquitetura MVC.
+Toda a interface (frontend) está integrada ao backend por meio de views dinâmicas e arquivos estáticos, sem necessidade de um frontend separado ou consumo via API externa.
 
 ---
 
@@ -36,8 +35,8 @@ Este projeto é o scaffolding inicial de uma API para um gerenciador de tarefas.
 5. Inicie o servidor em modo de desenvolvimento:
    npm run dev
 
-6. Acesse a API:
-   - A rota principal estará disponível em: `http://localhost:3000/`.
+6. Acesse a Aplicação:
+   - A página principal (tarefas) estará disponível em: `http://localhost:3000/`.
    - A documentação interativa (Swagger) estará disponível em: `http://localhost:3000/api-docs/`.
    - A lista com todas as tarefas estará disponível em: `http://localhost:3000/api/tasks/`.
     -A mensagem de boas vidas estará disponível em: `http://localhost:3000/api/`. 
@@ -45,8 +44,15 @@ Este projeto é o scaffolding inicial de uma API para um gerenciador de tarefas.
 ## Estrutura do Projeto
 
 sistema-gerenciador-de-tarefas-1/
+├── public/                     # Arquivos estáticos
+│   ├── css/                    # Estilos CSS
+│   │   └── style.css           # Arquivo de estilos principal
+│   ├── img/                    # Imagens do projeto
+│   ├── js/                     # Scripts JavaScript do lado do cliente
+│   │   └── script.js           # Script principal do frontend
 ├── src/                            # Código-fonte principal do projeto
 │   ├── config/                     # Configurações do projeto
+|   |   └── viewEngine.js           # Configura a renderização de páginas com EJS
 │   ├── controllers/                # Controladores da API
 │   │   └── taskController.js       # Controlador para gerenciar tarefas
 │   ├── docs/                       # Documentação da API
@@ -54,16 +60,11 @@ sistema-gerenciador-de-tarefas-1/
 │   ├── middlewares/                # Middlewares customizados
 │   ├── models/                     # Modelos de dados
 │   │   └── task.js                 # Modelo para tarefas
-│   ├── public/                     # Arquivos estáticos acessíveis ao cliente
-│   │   ├── css/                    # Estilos CSS
-│   │   │   └── style.css           # Arquivo de estilos principal
-│   │   ├── img/                    # Imagens do projeto
-│   │   ├── js/                     # Scripts JavaScript do lado do cliente
-│   │   │   └── script.js           # Script principal do frontend
-│   │   └── index.html              # Página HTML principal
 │   ├── routes/                     # Definição das rotas da API
 │   │   └── index.js                # Rotas principais da aplicação
-│   └── app.js                      # Arquivo principal da aplicação
+|   |── views/                      # Páginas renderizadas 
+|   |   └── tarefas.ejs             # Página que exibe as tarefas
+│   └── server.js                   # Arquivo principal da aplicação
 ├── .env                            # Variáveis de ambiente
 ├── .env.example                    # Exemplo de variáveis de ambiente
 ├── .eslintignore                   # Arquivos ignorados pelo ESLint
@@ -83,11 +84,6 @@ sistema-gerenciador-de-tarefas-1/
 5. Abra um Pull Request.
 
 
-## Licença
-
-Este projeto está sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-
 ## Contato
 
 Se tiver dúvidas ou sugestões, entre em contato:
@@ -101,5 +97,4 @@ Se tiver dúvidas ou sugestões, entre em contato:
    - Acesse `http://localhost:3000/api/` para ver a mensagem de boas-vindas.
    - Acesse `http://localhost:3000/api-docs/` para visualizar a documentação Swagger.
    - Acesse `http://localhost:3000/api/tasks/` para visualizar a lista com todas as tarefas.
-   - Acesse `http://localhost:3000/` para utilizar a API.
-
+   - Acesse `http://localhost:3000/` para utilizar a Aplicação.

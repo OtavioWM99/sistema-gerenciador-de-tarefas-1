@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 const routes = require('./routes');
 const swaggerConfig = require('./docs/swagger');
-const configViewEngine = require('./config/viewEngine'); // <-- aqui
+const configViewEngine = require('./config/viewEngine'); 
 
 // Configurar variáveis de ambiente
 dotenv.config();
@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Configurar EJS e arquivos estáticos
-configViewEngine(app); // <-- usando seu viewEngine.js
+configViewEngine(app); 
 
 // Middleware para parse de JSON
 app.use(express.json());

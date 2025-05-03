@@ -35,7 +35,7 @@ body {
   }
   
   #task-list li.overdue-task {
-    background-color: #f8d7da !important; /* Força a cor de fundo */
+    background-color: #f8d7da !important; 
     border-color: #f5c6cb !important;
   }
   
