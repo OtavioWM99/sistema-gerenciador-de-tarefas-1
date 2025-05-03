@@ -18,8 +18,14 @@ const taskController = require('../controllers/taskController');
  *             properties:
  *               title:
  *                 type: string
+ *                 example: Estudar JavaScript
  *               description:
  *                 type: string
+ *                 example: Terminar os exercícios do capítulo 5
+ *               deadline:
+ *                 type: string
+ *                 format: date
+ *                 example: 2025-05-20
  *     responses:
  *       201:
  *         description: Tarefa criada com sucesso
@@ -79,8 +85,14 @@ router.get('/', (req, res) => {
  *             properties:
  *               title:
  *                 type: string
+ *                 example: Novo título da tarefa
  *               description:
  *                 type: string
+ *                 example: Nova descrição da tarefa
+ *               deadline:
+ *                 type: string
+ *                 format: date
+ *                 example: 2025-06-01
  *     responses:
  *       200:
  *         description: Tarefa atualizada com sucesso

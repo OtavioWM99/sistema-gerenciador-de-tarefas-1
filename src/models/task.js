@@ -1,13 +1,14 @@
 let tasks = [];
 
 class Task {
-  constructor({ title, description }) {
+  constructor({ title, description, deadline }) {
     this.id = tasks.length + 1;
     this.title = title;
     this.description = description;
     this.completed = false;
     this.createdAt = new Date();
-    this.updatedAt = null; 
+    this.updatedAt = null;
+    this.deadline = deadline ? new Date(deadline) : null; 
   }
 
   static create(data) {
@@ -20,13 +21,14 @@ class Task {
     return tasks;
   }
 
-  static update(id, { title, description }) {
+  static update(id, { title, description, deadline }) {
     const task = tasks.find(t => t.id === id);
     if (!task) return null;
 
     task.title = title;
     task.description = description;
-    task.updatedAt = new Date(); // <- atualiza quando editado
+    task.updatedAt = new Date();
+    task.deadline = deadline ? new Date(deadline) : null; 
     return task;
   }
 
