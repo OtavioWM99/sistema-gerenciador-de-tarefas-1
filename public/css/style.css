@@ -34,3 +34,11 @@ body {
     margin-top: 10px;
   }
   
+  #task-list li.overdue-task {
+    background-color: #f8d7da !important; /* Força a cor de fundo */
+    border-color: #f5c6cb !important;
+  }
+  
+  #task-list li.overdue-task .text-muted {
+    color: #721c24 !important;
+  }

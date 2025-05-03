@@ -32,20 +32,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const completedList = document.getElementById('completed-task-list');
     activeList.innerHTML = '';
     completedList.innerHTML = '';
-
+  
+    const currentDate = new Date();
+  
     tasks.forEach(task => {
       const li = document.createElement('li');
       li.className = `list-group-item d-flex justify-content-between align-items-start flex-column`;
-
+  
       const creationDate = new Date(task.createdAt).toLocaleString('pt-BR', {
         dateStyle: 'short',
         timeStyle: 'short'
       });
-
+  
       const deadlineText = task.deadline
         ? `<br><small class="text-danger">Prazo: ${new Date(task.deadline).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}</small>`
         : '';
-
+  
       li.innerHTML = `
         <div class="w-100 mb-2">
           <strong class="${task.completed ? 'text-decoration-line-through' : ''}">${task.title}</strong><br>
@@ -64,16 +66,22 @@ document.addEventListener('DOMContentLoaded', () => {
           <button class="btn btn-sm btn-outline-danger" onclick="deleteTask(${task.id})">🗑</button>
         </div>
       `;
-
+  
+      // Verifica se a tarefa está em atraso
+      const isOverdue = task.deadline && new Date(task.deadline) < currentDate && !task.completed;
+  
       if (task.completed) {
         li.classList.add('completed-task');
         completedList.appendChild(li);
+      } else if (isOverdue) {
+        li.classList.add('overdue-task');  // Adiciona a classe de atraso
+        activeList.appendChild(li);
       } else {
         li.classList.add('pending-task');
         activeList.appendChild(li);
       }
     });
-  }
+  }  
 
   // Criar nova tarefa
   form.addEventListener('submit', async (e) => {
